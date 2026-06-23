@@ -6,6 +6,7 @@ import { Philosophy } from './components/Philosophy';
 import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import { ProjectModal } from './components/ProjectModal';
+import { ActivityLog } from './components/ActivityLog';
 
 interface Project {
   id: string;
@@ -99,6 +100,12 @@ export default function App() {
         
         <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
+        </svg>
+
+        <ActivityLog />
+
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
         </svg>
 
         <Contact />
