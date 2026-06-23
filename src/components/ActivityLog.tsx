@@ -89,14 +89,23 @@ export const ActivityLog: React.FC = () => {
           });
           const repoUrl = `https://github.com/${repoName}`;
 
-          commitsList.forEach((c: any) => {
+          if (commitsList.length === 0) {
             formattedCommits.push({
               repo: repoName.replace('ptraxzy/', ''),
-              message: c.message,
+              message: 'Pushed updates to repository',
               time: timeString,
               url: repoUrl
             });
-          });
+          } else {
+            commitsList.forEach((c: any) => {
+              formattedCommits.push({
+                repo: repoName.replace('ptraxzy/', ''),
+                message: c.message,
+                time: timeString,
+                url: repoUrl
+              });
+            });
+          }
         });
 
         setCommits(formattedCommits.slice(0, 4));
