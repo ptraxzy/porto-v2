@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Download, Sparkles, MessageSquare, Code, BookOpen, ExternalLink } from 'lucide-react';
+import { Download, Sparkles, MessageSquare, Code, BookOpen, ExternalLink, Wrench } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -116,6 +116,26 @@ const PROJECTS_DATA: Project[] = [
     dirStructure: `upk-restoran/\n├── index.php (Dashboard Kasir)\n├── menu.php (CRUD Menu)\n├── transaksi.php\n└── database.sql`,
     githubUrl: 'https://github.com/ptraxzy/upk-restoran',
     localPath: '/home/putra/Projects/tugasdpk'
+  },
+  {
+    id: 'ultramaxobuilder',
+    title: 'UltramaxoBuilder',
+    tagline: 'Automated Site Builder & Deployment Engine',
+    desc: 'An automated web development tool designed to streamline static site configuration, assemble visual web elements, and trigger automated deployment webhooks.',
+    theme: 'ultramaxo-theme',
+    tags: ['TypeScript', 'Node.js', 'Vite', 'Automation'],
+    techStack: ['TypeScript', 'Node.js', 'Vite', 'Vercel API'],
+    features: [
+      'Visual template selector and customization properties',
+      'Automated build bundling and asset compression pipeline',
+      'One-click Vercel deployment webhooks integration',
+      'Unified configuration file parser'
+    ],
+    workflow: 'Assembles web layout parameters, compiles raw code blocks into optimized build chunks, and dispatches them via API hooks to direct cloud hosts.',
+    dirStructure: `ultramaxobuilder/\n├── src/ (Builder Core)\n├── config/\n│   └── config.json\n├── templates/\n└── package.json`,
+    githubUrl: 'https://github.com/ptraxzy',
+    localPath: '/home/putra/Projects/ultramaxobuilder',
+    demoUrl: 'https://ultramaxo.tech'
   }
 ];
 
@@ -163,6 +183,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onOpenModal }) => {
                   {project.id === 'tonbot' && <MessageSquare size={20} />}
                   {project.id === 'ppob' && <Code size={20} />}
                   {project.id === 'upkrestoran' && <BookOpen size={20} />}
+                  {project.id === 'ultramaxobuilder' && <Wrench size={20} />}
                 </div>
                 <span className="mono-text" style={{ fontSize: '0.75rem', opacity: 0.6 }}>PORTFOLIO</span>
               </div>
