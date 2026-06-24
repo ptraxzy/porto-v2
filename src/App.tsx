@@ -7,6 +7,12 @@ import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import { ProjectModal } from './components/ProjectModal';
 import { ActivityLog } from './components/ActivityLog';
+import { LiveClock } from './components/LiveClock';
+import { StatsCounter } from './components/StatsCounter';
+import { TechStackLogos } from './components/TechStackLogos';
+import { Process } from './components/Process';
+import { Testimonials } from './components/Testimonials';
+import { Achievements } from './components/Achievements';
 
 interface Project {
   id: string;
@@ -60,9 +66,12 @@ export default function App() {
   return (
     <>
       <header className="header-nav">
-        <div className="brand-asterisk">
-          <Sparkles className="asterisk-icon" />
-          <span>Muhammad Putra</span>
+        <div className="header-left">
+          <div className="brand-asterisk">
+            <Sparkles className="asterisk-icon" />
+            <span>Muhammad Putra</span>
+          </div>
+          <LiveClock />
         </div>
         
         <button 
@@ -72,7 +81,7 @@ export default function App() {
         >
           {isLightMode ? (
             <>
-              <Moon size={16} /> Dark Claude
+              <Moon size={16} /> Dark Mode
             </>
           ) : (
             <>
@@ -85,27 +94,62 @@ export default function App() {
       <main>
         <Hero onScrollToProjects={scrollToProjects} />
         <BentoGrid />
-        
+
         <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
+        </svg>
+
+        {/* Stats Counter Section */}
+        <StatsCounter />
+        
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
         </svg>
 
         <Philosophy />
         
         <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
+        </svg>
+
+        {/* Tech Stack Logos */}
+        <TechStackLogos />
+
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
+        </svg>
+
+        {/* Process / How I Work */}
+        <Process />
+
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
         </svg>
 
         <Projects onOpenModal={setSelectedProject} />
         
         <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
+        </svg>
+
+        {/* Achievements */}
+        <Achievements />
+
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
           <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
+        </svg>
+
+        {/* Testimonials */}
+        <Testimonials />
+
+        <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
         </svg>
 
         <ActivityLog />
 
         <svg className="wave-divider" viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path d="M1440,60 C1080,120 360,0 0,60 L0,0 L1440,0 Z" />
+          <path d="M0,60 C360,0 1080,120 1440,60 L1440,120 L0,120 Z" />
         </svg>
 
         <Contact />
