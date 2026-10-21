@@ -33,22 +33,27 @@ const svgLogos: Record<string, { color: string; svg: React.ReactNode }> = {
 const techCategories = [
   {
     category: 'Frontend',
+    description: 'Interface systems for fast, accessible web products.',
     items: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Vite']
   },
   {
     category: 'Backend',
+    description: 'Services, APIs, and application logic behind the product.',
     items: ['Node.js', 'PHP', 'Laravel', 'Python']
   },
   {
-    category: 'Database',
+    category: 'Data',
+    description: 'Storage choices for reliable, queryable product data.',
     items: ['PostgreSQL', 'MySQL', 'MongoDB']
   },
   {
-    category: 'DevOps & Tools',
+    category: 'Platform',
+    description: 'The tools that keep code portable, reviewable, and deployable.',
     items: ['Docker', 'Git', 'Linux', 'NGINX', 'GitHub']
   },
   {
-    category: 'AI & LLMs',
+    category: 'AI & Experiments',
+    description: 'Models and experiments for prototyping useful new workflows.',
     items: ['Claude', 'GLM', 'OpenAI', 'TensorFlow', 'PyTorch']
   }
 ];
@@ -57,38 +62,62 @@ export const TechStackLogos: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const scope = sectionRef.current;
+    if (!scope) return;
+    const listeners: Array<{ panel: HTMLElement; enter: () => void; leave: () => void }> = [];
     const ctx = gsap.context(() => {
-      gsap.from('.tech-category', {
-        y: 60,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        }
-      });
-    }, sectionRef);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    return () => ctx.revert();
+      const q = gsap.utils.selector(scope);
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: scope,
+          start: 'top 78%',
+          end: 'bottom 28%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      timeline
+        .from(q('.tech-title'), { y: 42, autoAlpha: 0, duration: 0.72, ease: 'power3.out' })
+        .from(q('.tech-intro'), { y: 18, autoAlpha: 0, duration: 0.5, ease: 'power2.out' }, '-=0.43')
+        .from(q('.tech-category'), { y: 34, autoAlpha: 0, duration: 0.64, stagger: 0.1, ease: 'power3.out' }, '-=0.18')
+        .from(q('.tech-logo-item'), { y: 10, autoAlpha: 0, duration: 0.32, stagger: 0.025, ease: 'power2.out' }, '-=0.48');
+
+      q('.tech-category').forEach((panel) => {
+        const enter = () => gsap.to(panel, { y: -3, duration: 0.24, ease: 'power2.out', overwrite: 'auto' });
+        const leave = () => gsap.to(panel, { y: 0, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+        panel.addEventListener('mouseenter', enter);
+        panel.addEventListener('mouseleave', leave);
+        listeners.push({ panel, enter, leave });
+      });
+    }, scope);
+
+    return () => {
+      listeners.forEach(({ panel, enter, leave }) => {
+        panel.removeEventListener('mouseenter', enter);
+        panel.removeEventListener('mouseleave', leave);
+      });
+      ctx.revert();
+    };
   }, []);
 
   return (
     <section className="tech-section" ref={sectionRef}>
-      <h2 className="serif-text">Tech Stack</h2>
-      <p className="text-secondary" style={{ marginBottom: '40px' }}>
-        Technologies I work with to build robust solutions
+      <h2 className="serif-text tech-title">Tech Stack</h2>
+      <p className="text-secondary tech-intro">
+        Tools I use to build, ship, and maintain software.
       </p>
 
       <div className="tech-categories">
         {techCategories.map((cat, catIdx) => (
-          <div key={catIdx} className="tech-category">
+          <article key={catIdx} className={`tech-category tech-category-${catIdx + 1}`}>
             <div className="tech-category-header">
+              <span className="tech-category-number">0{catIdx + 1}</span>
               <span className="tech-category-name">{cat.category}</span>
               <div className="tech-category-line"></div>
             </div>
+            <p className="tech-category-description">{cat.description}</p>
             <div className="tech-category-items">
               {cat.items.map((name, idx) => {
                 const svgData = svgLogos[name];
@@ -110,7 +139,7 @@ export const TechStackLogos: React.FC = () => {
                 );
               })}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

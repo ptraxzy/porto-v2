@@ -12,6 +12,13 @@ interface GitHubCommit {
   url: string;
 }
 
+interface GitHubEvent {
+  type: string;
+  repo: { name: string };
+  payload: { commits?: Array<{ message: string }> };
+  created_at: string;
+}
+
 const STATIC_CHANGELOG = [
   {
     date: 'June 23, 2026',
@@ -69,7 +76,7 @@ export const ActivityLog: React.FC = () => {
         if (!res.ok) throw new Error('API Rate Limit or Error');
         return res.json();
       })
-      .then((data: any[]) => {
+      .then((data: GitHubEvent[]) => {
         // Filter for PushEvents (commits)
         const pushEvents = data.filter((e) => e.type === 'PushEvent');
         
@@ -97,7 +104,7 @@ export const ActivityLog: React.FC = () => {
               url: repoUrl
             });
           } else {
-            commitsList.forEach((c: any) => {
+            commitsList.forEach((c) => {
               formattedCommits.push({
                 repo: repoName.replace('ptraxzy/', ''),
                 message: c.message,
